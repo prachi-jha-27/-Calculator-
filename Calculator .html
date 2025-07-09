@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calculator</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-sky-800 via-fuchsia-700 to-rose-600">
+  <!-- <body class="flex flex-col items-center justify-center min-h-screen bg-slate-900"> -->
+
+
+  <h1 class="text-4xl font-bold text-white mb-8 tracking-wide drop-shadow-lg">
+    🧮 Smart Calculator
+  </h1>
+    <div class="w-80 bg-gray-800  p-4 rounded-2xl shadow-lg">
+ <input type="text" id="display" readonly
+      class="w-full text-right text-3xl font-mono text-white bg-black/70 p-4 rounded-xl mb-6 shadow-inner" />
+
+    <div class="grid grid-cols-4 gap-4" >
+      <button id="clear" class="btn bg-red-500/60">C</button>
+      <button class="btn bg-pink-400/60 ops">(</button>
+      <button class="btn bg-pink-400/60 ops">)</button>
+      <button class="btn bg-yellow-400/70 ops">÷</button>
+
+      <button class="btn bg-cyan-400/50 ops">7</button>
+      <button class="btn bg-cyan-400/50 ops" >8</button>
+      <button class="btn bg-cyan-400/50 ops" >9</button>
+      <button class="btn bg-yellow-400/70 ops">×</button>
+
+      <button class="btn bg-cyan-400/50 ops" >4</button>
+      <button class="btn bg-cyan-400/50 ops" >5</button>
+      <button class="btn bg-cyan-400/50 ops" >6</button>
+      <button class="btn bg-yellow-400/70 ops" >−</button>
+
+      <button class="btn bg-cyan-400/50 ops">1</button>
+      <button class="btn bg-cyan-400/50 ops">2</button>
+      <button class="btn bg-cyan-400/50 ops">3</button>
+      <button class="btn bg-yellow-400/70 ops">+</button>
+
+      <button class="btn bg-cyan-400/50 col-span-2 ops">0</button>
+      <button class="btn bg-purple-400/60 ops">.</button>
+      <button id="equal" class="btn bg-emerald-500/70 hover:bg-emerald-500/90">=</button>
+    </div>
+  </div>
+  <script>
+    let reset=false;
+      const dis=document.getElementById("display");
+    document.querySelectorAll(".ops").forEach(button=>{
+       button.addEventListener("click",()=>{
+      if(reset){
+        dis.value="";
+        reset=false;
+      }
+        dis.value+=button.textContent;
+      });
+    });
+    
+    document.getElementById("clear").addEventListener("click",()=>{
+      dis.value="";
+    });
+    document.getElementById("equal").addEventListener("click",()=>{
+      try{
+        let expression = dis.value.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+      dis.value = eval(expression);
+      reset=true;
+      }
+      catch{
+        dis.value="Error";
+      }
+    });
+  </script>
+  
+</body>
+</html>
